@@ -3,7 +3,7 @@
   "appName": "risen",
   "webDir": "dist",
   "server": {
-    "url": "http://localhost:3000",
+    "url": "https://xuegangwu.github.io/risen-energy",
     "androidScheme": "https"
   },
   "plugins": {

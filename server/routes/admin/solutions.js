@@ -1,6 +1,6 @@
 import express from 'express';
 import Solution from '../../models/Solution.js';
-import { auth, adminAuth } from '../../middleware/auth.js';
+import { requireAdmin } from '../../middleware/auth.js';
 
 const router = express.Router();
 
@@ -33,7 +33,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.post('/', adminAuth, async (req, res) => {
+router.post('/', requireAdmin, async (req, res) => {
   try {
     const solution = new Solution(req.body);
     await solution.save();
@@ -43,7 +43,7 @@ router.post('/', adminAuth, async (req, res) => {
   }
 });
 
-router.put('/:id', adminAuth, async (req, res) => {
+router.put('/:id', requireAdmin, async (req, res) => {
   try {
     const solution = await Solution.findByIdAndUpdate(
       req.params.id,
@@ -59,7 +59,7 @@ router.put('/:id', adminAuth, async (req, res) => {
   }
 });
 
-router.delete('/:id', adminAuth, async (req, res) => {
+router.delete('/:id', requireAdmin, async (req, res) => {
   try {
     const solution = await Solution.findByIdAndDelete(req.params.id);
     if (!solution) {
@@ -71,7 +71,7 @@ router.delete('/:id', adminAuth, async (req, res) => {
   }
 });
 
-router.post('/seed', adminAuth, async (req, res) => {
+router.post('/seed', requireAdmin, async (req, res) => {
   try {
     const defaultSolutions = [
       {
